@@ -1,0 +1,74 @@
+#!/usr/bin/python3
+# encoding: utf-8
+
+import argparse
+
+parser = argparse.ArgumentParser()
+
+parser.add_argument("-a", "--all", action='store_true')
+parser.add_argument("-s", "--kernel-name", action='store_true')
+parser.add_argument("-n", "--nodename", action='store_true')
+parser.add_argument("-r", "--kernel-release", action='store_true')
+parser.add_argument("-v", "--kernel-version", action='store_true')
+parser.add_argument("-m", "--machine", action='store_true')
+parser.add_argument("-p", "--processor", action='store_true')
+parser.add_argument("-i", "--hardware-platform", action='store_true')
+parser.add_argument("-o", "--operating-system", action='store_true')
+parser.add_argument("--version", action='store_true')
+
+
+args = parser.parse_args()
+
+if args.version:
+    print('''uname (GNU coreutils) 8.26
+Copyright (C) 2016 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Written by David MacKenzie.''')
+    exit(0)
+
+s = "Linux"
+n = "localhost"
+r = "4.9.30-OpenNetworkLinux"
+v = "#1 SMP Fri Jan 21 08:15:17 UTC 2022"
+m = "x86_64"
+p = "unknown"
+i = "unknown"
+o = "GNU/Linux"
+a = " ".join([s, n, r, v, m, o])
+
+if args.all:
+    print(a)
+    exit(0)
+
+out = []
+if args.kernel_name:
+    out += [s]
+
+if args.nodename:
+    out += [n]
+
+if args.kernel_release:
+    out += [r]
+
+if args.kernel_version:
+    out += [v]
+
+if args.machine:
+    out += [m]
+
+if args.processor:
+    out += [p]
+
+if args.hardware_platform:
+    out += [i]
+
+if args.operating_system:
+    out += [o]
+
+if len(out) == 0:
+    out += [s]
+
+print(" ".join(out))
